@@ -7,7 +7,6 @@ class Teacher(models.Model):
     class LevelChoices(models.TextChoices):
         JUNIOR = 'Junior'
         MIDDLE = 'Middle'
-        STRONG_MIDDLE = 'Strong-middle'
         SENIOR = 'Senior'
 
     full_name = models.CharField(max_length=100)
