@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ course.title }}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f4f7f9;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .navbar-brand {
+            color: green;
+        }
+
+        .navbar-brand:hover {
+            color: greenyellow;
+        }
+
+        .hero {
+            background: url('https://i.pinimg.com/564x/5e/d5/8c/5ed58cbf79e583bfbab7016077008e28.jpg') no-repeat center center;
+            background-size: cover;
+            color: #fff;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+        }
+
+        .video-card {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .video-card .video-wrapper {
+            position: relative;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            overflow: hidden;
+        }
+
+        .video-card video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-card .video-description {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .video-card .video-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #343a40;
+            margin: 0;
+        }
+
+        .video-card .video-meta {
+            font-size: 0.875rem;
+            color: #6c757d;
+            margin: 0;
+        }
+
+        .comment-section {
+            margin-top: 40px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment-section h4 {
+            margin-bottom: 20px;
+        }
+
+        .comment {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        .comment:last-child {
+            border-bottom: none;
+        }
+
+        .footer {
+            background-color: grey;
+            color: #fff;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">Course Platform</a>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <h1>{{ course.title }}</h1>
+            <p>Explore our curated videos and learn more about the course content</p>
+        </div>
+    </header>
+
+    <main class="container py-5">
+        <div class="row">
+            {% for video in videos %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="video-card">
+                        <div class="video-wrapper">
+                            <video src="{{ video.video.url }}" type="video/mp4" controls></video>
+                        </div>
+                        <div class="video-description">
+                            <p class="video-title">{{ video.title }}</p>
+                            <p class="video-meta">Duration: {{ video.duration }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Comment Section -->
+        <div class="comment-section">
+            <h4>Comments</h4>
+            <div id="comments">
+                {% for comment in comments %}
+                    <div class="comment">
+                        <p><strong>{{ comment.user.username }}:</strong> {{ comment.content }}</p>
+                        <p class="text-muted">{{ comment.created_at|date:"M d, Y H:i" }}</p>
+                    </div>
+                {% empty %}
+                    <p>No comments yet. Be the first to comment!</p>
+                {% endfor %}
+            </div>
+            <hr>
+            <form method="post" action="{% url 'course_detail' course.id %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="comment">Leave a Comment</label>
+                    <textarea class="form-control" id="comment" name="comment" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Post Comment</button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 Course Platform. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+{% extends 'courses/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container-fluid page-header" style="margin-bottom: 90px;">
+        <div class="container">
+            <div class="d-flex flex-column justify-content-center" style="min-height: 300px">
+                <h3 class="display-4 text-white text-uppercase">Contact</h3>
+                <div class="d-inline-flex text-white">
+                    <p class="m-0 text-uppercase"><a class="text-white" href="{% url 'index' %}">Home</a></p>
+                    <i class="fa fa-angle-double-right pt-1 px-3"></i>
+                    <p class="m-0 text-uppercase">Courses</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+    <!-- Contact Start -->
+    <div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Contact</h5>
+            <h1>Contact For Any Query</h1>
+        </div>
+
+        <div class="bg-secondary rounded p-5">
+            <h3 class="text-uppercase mb-4" style="letter-spacing: 5px;">Leave a comment</h3>
+            <form method="post" action="{% url 'save_message' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    
+                    <input type="text" placeholder="Your name" name="name" class="form-control border-0" id="name">
+                </div>
+                <div class="form-group">
+                    
+                    <input type="email" placeholder="Your email" name="email" class="form-control border-0" id="email">
+                </div>
+                 <div class="form-group">
+                    
+                    <input type="text" placeholder="Subject" name="subject" class="form-control border-0" id="email">
+                </div>
+
+
+                <div class="form-group">
+                    
+                    <textarea id="message" placeholder="message" name="message" cols="30" rows="5" class="form-control border-0"></textarea>
+                </div>
+                <div class="form-group mb-0">
+                    <input type="submit" value="Send message"
+                           class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold">
+                </div>
+            </form>
+            </form>
+        </div>
+    </div>
+{% endblock %}

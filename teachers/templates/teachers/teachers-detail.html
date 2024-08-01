@@ -1,0 +1,44 @@
+{% extends 'courses/base.html' %}
+{% load static %}
+
+{% block title %}{{ teacher.full_name }} - Teacher Profile{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <img src="{{ teacher.image.url }}" class="card-img-top" alt="{{ teacher.full_name }}">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ teacher.full_name }}</h5>
+                    <p class="card-text"><strong>Specialization:</strong> {{ teacher.specialization }}</p>
+                    <p class="card-text"><strong>Level:</strong> {{ teacher.get_level_display }}</p>
+                    <p class="card-text"><strong>Rating:</strong> {{ teacher.rating }}</p>
+                    <a href="mailto:{{ teacher.email }}" class="btn btn-primary btn-block">Contact</a>
+                    <div class="mt-3">
+                        <a class="btn btn-outline-secondary btn-square mx-1" href="#" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a class="btn btn-outline-secondary btn-square mx-1" href="#" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a class="btn btn-outline-secondary btn-square mx-1" href="#" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">About {{ teacher.full_name }}</h4>
+                    <p class="card-text">{{ teacher.description }}</p>
+
+              
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
